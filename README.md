@@ -1,36 +1,68 @@
-# NodeJs Introduce
+# Routing Blog Post
 
 NodeJs is a runtime built for make backend development possible
 
 ## Pre-requesite
-- Make sure you have editor to ease your project development
-- Download & Install NodeJs [here](https://nodejs.org/en/download/)
+- Install template engine (hbs) using npm command:
+```
+  npm install hbs
+```
 
-## Hello world
+## Setup engine and Serving static files (css, image, dll)
 ```javascript
-// import express to create a express app
-const express = require('express')
+app.set('view engine', 'hbs');// set up template engine
 
-// initialize app
-const app = express()
+app.use('/public', express.static(__dirname + '/public')); // serving static files
+```
 
-// initialize hello world 
-app.get('/', (req, res) => {
-  res.send("Hello World")
+## Get URL Routing for Home, Blog & Form
+```javascript
+// define route for get home page 
+app.get('/home', (req, res) => {
+  res.render('index')
 })
 
-// start server listener on PORT 5000
-app.listen(5000, () => {
-  console.log('server starting on PORT: 5000')
+// define route for get blog page
+app.get('/blog', (req, res) => {
+  res.render('blog', {isLogin: isLogin})
+})
+
+// define route for get form blog page
+app.get('/add-blog', (req, res) => {
+  res.render("form-blog")
 })
 ```
 
-## Create Blog Form with Bootstrap
+## Get Blog Detail using URL Params
+```javascript
+// define route for get blog detail page with params
+app.get('/blog/:id', (req, res) => {
+  // get selected blog id with params
+  const blogId = req.params.id
+  // render blog-detail page and send data to view
+  res.render('blog-detail', { post: {
+    id: blogId,
+    title: 'Pasar Coding di Indonesia Dinilai Masih Menjanjikan',
+    postDate: '12 Jul 2021 22:30 WIB',
+    author: 'Ichsan Emrald Alamsyah',
+    content: `Ketimpangan sumber daya manusia (SDM) di sektor digital masih
+    menjadi isu yang belum terpecahkan. Berdasarkan penelitian
+    ManpowerGroup, ketimpangan SDM global, termasuk Indonesia,
+    meningkat dua kali lipat dalam satu dekade terakhir. Lorem ipsum,
+    dolor sit amet consectetur adipisicing elit. Quam, molestiae
+    numquam! Deleniti maiores expedita eaque deserunt quaerat! Dicta,
+    eligendi debitis?`
+  }})
+})
+```
 
-Boostrap is a CSS Framework built for boost productivity in styling with simplicity setup and use
-
-- Go to Boostrap official documentation to [get started](https://getbootstrap.com/docs/5.1/getting-started/introduction/)
-- Copy CSS and attach to in your html `head` element
-- Explore components in the documentation for creating blog form page (navbar and forms section)
-
-
+## Get Blog Post Form Data using POST Method
+```javascript
+// define route for receive post data from client
+app.post('/blog', (req, res) => {
+  console.log({
+    title: req.title,
+    content: req.content
+  })
+})
+```
