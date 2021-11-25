@@ -1,6 +1,20 @@
 // import express to create a express app
 const express = require('express')
 
+// create array to store blog, initialize with one element first
+const blogs = [{
+    id: 1,
+    title: 'Pasar Coding di Indonesia Dinilai Masih Menjanjikan',
+    postDate: '12 Jul 2021 22:30 WIB',
+    author: 'Ichsan Emrald Alamsyah',
+    content: `Ketimpangan sumber daya manusia (SDM) di sektor digital masih
+    menjadi isu yang belum terpecahkan. Berdasarkan penelitian
+    ManpowerGroup, ketimpangan SDM global, termasuk Indonesia,
+    meningkat dua kali lipat dalam satu dekade terakhir. Lorem ipsum,
+    dolor sit amet consectetur adipisicing elit. Quam, molestiae
+    numquam! Deleniti maiores expedita eaque deserunt quaerat! Dicta,
+    eligendi debitis?`
+  }]
 
 // initialize app
 const app = express()
@@ -8,7 +22,7 @@ const app = express()
 app.set('view engine', 'hbs');// set up template engine
 
 app.use('/public', express.static(__dirname + '/public')); // serving static files
-
+app.use(express.urlencoded({extended: false})) // define request parser
 // initialize hello world 
 app.get('/', (req, res) => {
   res.send("Hello World")
@@ -24,7 +38,8 @@ app.get('/home', (req, res) => {
 
 // define route for get blog page
 app.get('/blog', (req, res) => {
-  res.render('blog', {isLogin: isLogin})
+  //rende blogs data to page 
+  res.render('blog', { isLogin: isLogin, blogs: blogs})
 })
 
 // define route for get form blog page
@@ -55,11 +70,33 @@ app.get('/blog/:id', (req, res) => {
 // define route for receive post data from client
 app.post('/blog', (req, res) => {
   console.log({
-    title: req.title,
-    content: req.content
+    title: req.body.title,
+    content: req.body.content
   })
+  const blog = {
+    title: req.body.title,
+    postDate: '12 Jul 2021 22:30 WIB',
+    author: 'Ichsan Emrald Alamsyah',
+    content: req.body.content,
+  }
+
+  // store new post blog to blogs array
+  blogs.push(blog)
 
   // redirect to specific route
+  res.redirect('/blog')
+})
+
+
+// define route for handling delete post
+app.get('/delete-blog/:id', (req, res) => {
+  // get blog index by fetch req params
+  const index = req.params
+
+  // remove blog at specific index with count number equal to 1
+  blogs.splice(index, 1)
+
+  // redirect to blog route for refetch blog page
   res.redirect('/blog')
 })
 

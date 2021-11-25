@@ -30,38 +30,35 @@
 
     <!-- Blog list -->
     <div id="contents" class="blog-list">
+      <div class="button-group w-100">
+        <a href="/add-blog" class="btn-post">Add New Blog</a>
+      </div>
       <!-- dynamic content would be here -->
+      <!-- using each expression to iterate blogs data sent -->
+      {{#each blogs}}
       <div class="blog-list-item">
         <div class="blog-image">
           <img src="/public/assets/blog-img.png" alt="Pasar Coding di Indonesia Dinilai Masih Menjanjikan" />
         </div>
         <div class="blog-content">
           <!-- conditional post blog -->
-          {{#if isLogin}}
+          <!-- update isLogin to ../isLogin -->
+          {{#if ../isLogin}}
           <div class="button-group">
             <button class="btn-edit">Edit Post</button>
-            <a href="/add-blog" class="btn-post">Post Blog</a>
+            <a href="/delete-blog/{{@index}}" class="btn-post">Delete Blog</a>
           </div>
           {{/if}}
           <h1>
-            <a href="/blog/1" target="_blank">
-              Pasar Coding di Indonesia Dinilai Masih Menjanjikan
-            </a>
+            <a href="/blog/{{@index}}" target="_blank">{{this.title}}</a>
           </h1>
           <div class="detail-blog-content">
-            12 Jul 2021 22:30 WIB | Ichsan Emrald Alamsyah
+            {{this.postDate}} | {{this.author}}
           </div>
-          <p>
-            Ketimpangan sumber daya manusia (SDM) di sektor digital masih
-            menjadi isu yang belum terpecahkan. Berdasarkan penelitian
-            ManpowerGroup, ketimpangan SDM global, termasuk Indonesia,
-            meningkat dua kali lipat dalam satu dekade terakhir. Lorem ipsum,
-            dolor sit amet consectetur adipisicing elit. Quam, molestiae
-            numquam! Deleniti maiores expedita eaque deserunt quaerat! Dicta,
-            eligendi debitis?
-          </p>
+          <p>{{this.content}}</p>
         </div>
       </div>
+      {{/each}}
     </div>
   </body>
 </html>
