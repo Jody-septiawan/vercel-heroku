@@ -1,5 +1,7 @@
 // import express to create a express app
 const express = require('express')
+// import db connection
+const db = require('./connection/db')
 
 // create array to store blog, initialize with one element first
 const blogs = [{
@@ -39,7 +41,17 @@ app.get('/home', (req, res) => {
 // define route for get blog page
 app.get('/blog', (req, res) => {
   //rende blogs data to page 
-  res.render('blog', { isLogin: isLogin, blogs: blogs})
+
+  // checkout connection
+  db.connect((err, client, done) => {
+    if (err) throw err
+    client.query('SELECT * FROM blogs', (err, result) => {
+      done()
+      if (err) throw err
+
+      res.render('blog', { isLogin: isLogin, blogs: result.rows[0]})
+    })
+  })
 })
 
 // define route for get form blog page
