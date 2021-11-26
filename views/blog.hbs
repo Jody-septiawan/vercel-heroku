@@ -30,9 +30,12 @@
 
     <!-- Blog list -->
     <div id="contents" class="blog-list">
+      <!-- conditional post blog form-->
+      {{#if isLogin}}
       <div class="button-group w-100">
         <a href="/add-blog" class="btn-post">Add New Blog</a>
       </div>
+      {{/if}}
       <!-- dynamic content would be here -->
       <!-- using each expression to iterate blogs data sent -->
       {{#each blogs}}
@@ -41,14 +44,10 @@
           <img src="/public/assets/blog-img.png" alt="Pasar Coding di Indonesia Dinilai Masih Menjanjikan" />
         </div>
         <div class="blog-content">
-          <!-- conditional post blog -->
-          <!-- update isLogin to ../isLogin -->
-          {{#if ../isLogin}}
           <div class="button-group">
-            <button class="btn-edit">Edit Post</button>
+            <a class="btn-edit">Edit Post</a>
             <a href="/delete-blog/{{@index}}" class="btn-post">Delete Blog</a>
           </div>
-          {{/if}}
           <h1>
             <a href="/blog/{{@index}}" target="_blank">{{this.title}}</a>
           </h1>
