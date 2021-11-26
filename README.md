@@ -7,7 +7,7 @@
 ```
 
 ## Create Database
-![alt text](https://github.com/DumbwaysDotId/pre-class-chapter-2/db-diagram.png "Database ERD")
+![Database ERD](https://github.com/DumbwaysDotId/pre-class-chapter-2/blob/4.Postgresql-implementation-with-NodeJs/db-diagram.png)
 - Note: create column authorId on day 6 (relation)
 
 ## Setup db connection
