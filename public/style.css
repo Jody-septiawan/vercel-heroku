@@ -296,6 +296,9 @@ select {
   border: 0;
   border-radius: 4px;
   background: #dbdbdb;
+  color: inherit;
+  margin-right: 10px;
+  text-decoration: none;
 }
 
 .blog-list .button-group .btn-post {

@@ -51,10 +51,10 @@ app.get('/blog/:id', (req, res) => {
   // get selected blog id with params
   const blogId = req.params.id
   // render blog-detail page and send data to view
-  res.render('blog-detail', { post: {
+  res.render('blog-detail', { blog: {
     id: blogId,
     title: 'Pasar Coding di Indonesia Dinilai Masih Menjanjikan',
-    postDate: '12 Jul 2021 22:30 WIB',
+    post_date: '12 Jul 2021 22:30 WIB',
     author: 'Ichsan Emrald Alamsyah',
     content: `Ketimpangan sumber daya manusia (SDM) di sektor digital masih
     menjadi isu yang belum terpecahkan. Berdasarkan penelitian
@@ -74,7 +74,7 @@ app.post('/blog', (req, res) => {
   })
   const blog = {
     title: req.body.title,
-    postDate: '12 Jul 2021 22:30 WIB',
+    post_date: '12 Jul 2021 22:30 WIB',
     author: 'Ichsan Emrald Alamsyah',
     content: req.body.content,
   }

@@ -6,6 +6,10 @@
   npm install pg
 ```
 
+## Create Database
+![alt text](https://github.com/DumbwaysDotId/pre-class-chapter-2/db-diagram.png "Database ERD")
+- Note: create column authorId on day 6 (relation)
+
 ## Setup db connection
 ```javascript
 // import postgres Pool
