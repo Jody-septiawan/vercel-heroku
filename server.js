@@ -3,21 +3,6 @@ const express = require('express')
 // import db connection
 const db = require('./connection/db')
 
-// create array to store blog, initialize with one element first
-const blogs = [{
-    id: 1,
-    title: 'Pasar Coding di Indonesia Dinilai Masih Menjanjikan',
-    postDate: '12 Jul 2021 22:30 WIB',
-    author: 'Ichsan Emrald Alamsyah',
-    content: `Ketimpangan sumber daya manusia (SDM) di sektor digital masih
-    menjadi isu yang belum terpecahkan. Berdasarkan penelitian
-    ManpowerGroup, ketimpangan SDM global, termasuk Indonesia,
-    meningkat dua kali lipat dalam satu dekade terakhir. Lorem ipsum,
-    dolor sit amet consectetur adipisicing elit. Quam, molestiae
-    numquam! Deleniti maiores expedita eaque deserunt quaerat! Dicta,
-    eligendi debitis?`
-  }]
-
 // initialize app
 const app = express()
 
@@ -45,11 +30,13 @@ app.get('/blog', (req, res) => {
   // checkout connection
   db.connect((err, client, done) => {
     if (err) throw err
-    client.query('SELECT * FROM blogs', (err, result) => {
+
+    // execute query to get data
+    client.query('SELECT * FROM tb_blog', (err, result) => {
       done()
       if (err) throw err
 
-      res.render('blog', { isLogin: isLogin, blogs: result.rows[0]})
+      res.render('blog', { isLogin: isLogin, blogs: result.rows})
     })
   })
 })

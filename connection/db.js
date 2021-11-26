@@ -7,7 +7,7 @@ const dbPool = new Pool({
   database: 'db_blog',
   port: 5432,
   user: 'postgres',
-  password: null
+  password: 'root' //based on your first postgresql installation setup
 })
 
 // export db pool to be used for query
