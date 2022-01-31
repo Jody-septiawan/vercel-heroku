@@ -1,14 +1,12 @@
-// import postgres Pool
-const { Pool } = require('pg')
+const { Pool } = require('pg');
 
+const connectionString = `postgres://${process.env.PG_USER}:${process.env.PG_PASSWORD}@${process.env.PG_HOST}:${process.env.PG_PORT}/${process.env.PG_DATABASE}`;
 
-// setup connection pool
-const dbPool = new Pool({
-  database: 'db_blog',
-  port: 5432,
-  user: 'postgres',
-  password: 'root' //based on your first postgresql installation setup
-})
+const pool = new Pool({
+  connectionString: connectionString,
+  ssl: {
+    rejectUnauthorized: false,
+  },
+});
 
-// export db pool to be used for query
-module.exports = dbPool
+module.exports = pool;
