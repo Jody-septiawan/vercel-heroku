@@ -13,6 +13,13 @@ app.use(express.urlencoded({ extended: false }));
 
 const path = 'http://localhost:5000/uploads/';
 
+app.get('/api', (req, res) => {
+  res.send({
+    status: 'success',
+    message: 'hello wolrd',
+  });
+});
+
 app.get('/', (req, res) => {
   db.connect((err, client, done) => {
     if (err) throw err;
